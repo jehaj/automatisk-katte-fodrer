@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+
+    <title>Aukafo</title>
+</head>
+
+<body>
+    <section class="section">
+        <div class="container is-max-desktop">
+            <section class="hero is-primary">
+                <div class="hero-body">
+                    <p class="title">
+                        Aukafo
+                    </p>
+                    <p class="subtitle">
+                        Sørger for, at dit kæledyr har det godt 🐱🐶
+                    </p>
+                </div>
+            </section>
+
+            <div class="card mt-5">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Følg dit kæledyrs vægt
+                    </p>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                        Lorem ipsum leo risus, porta ac consectetur ac, vestibulum at eros. Donec id elit non mi
+                        porta gravida at eget metus. Cum sociis natoque penatibus et magnis dis parturient montes,
+                        nascetur ridiculus mus. Cras mattis consectetur purus sit amet fermentum.
+
+                        <div class="field has-addons mt-3">
+                            <p class="control">
+                                <button class="button">
+                                    <span>Uge</span>
+                                </button>
+                            </p>
+                            <p class="control">
+                                <button class="button">
+                                    <span>Måned</span>
+                                </button>
+                            </p>
+                            <p class="control">
+                                <button class="button">
+                                    <span>År</span>
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-5">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Indstillinger
+                    </p>
+                </header>
+
+                <div class="card-content">
+                    <div class="content">
+                        Du har muligheden for at vælge hvor mange gange dit kæledyr skal fodres, hvornår det skal ske og
+                        hvor meget det skal få på det tidspunkt. Hvis du vil tilføje et måltid, så tryk på "Tilføj".
+                        Hvis du derimod vil fjerne et måltid, skal du trykke på krydset (x) i højre side af skærmen.
+                        Når du er tilfreds med måltiderne, så tryk på "Opdater". Vær opmærksom på, at der kan gå
+                        op til 30 minutter før din maskine får opdateringerne.
+
+                        <div id="settingsHolder">
+                            <div class="box mt-3">
+                                <div class="columns is-vcentered">
+                                    <div class="column is-narrow">
+                                        <div class="columns is-vcentered">
+                                            <div class="column is-narrow p-0 pl-3">
+                                                <i class="far fa-clock"></i>
+                                                Tid
+                                            </div>
+                                            <div class="column p-0 pl-3">
+                                                <input style="width: 4.5em;" class="input" type="text"
+                                                    placeholder="hh:mm">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="column is-narrow ml-5">
+                                        <div class="columns is-vcentered">
+                                            <div class="column is-narrow p-0">
+
+                                                <i class="fas fa-utensils"></i>
+                                                Mængde foder
+                                            </div>
+                                            <div class="column p-0 pl-3">
+                                                <input style="width: 9em;" class="input" type="text"
+                                                    placeholder="Et tal fra 1 til 10">
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="column is-narrow" style="margin-left: auto;">
+                                        <button class="delete"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="button is-primary">Tilføj</button>
+                                <button class="button is-warning">Opdater</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
