@@ -291,3 +291,12 @@ Thumbs.db
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,vscode,python,node
 ignoredfile.txt
+
+### PlatformIO ###
+.pioenvs
+.piolibdeps
+.clang_complete
+.gcc-flags.json
+.pio
+
+# End of https://www.toptal.com/developers/gitignore/api/platformio
