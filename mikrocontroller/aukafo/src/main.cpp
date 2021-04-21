@@ -31,7 +31,13 @@ void loop() {
   // put your main code here, to run repeatedly:
   timeClient.update();
 
-  Serial.println(timeClient.getFormattedTime());
+  String utcTime = timeClient.getFormattedTime();
+  int hh = utcTime.substring(0, 2).toInt();
+  int mm = utcTime.substring(3, 5).toInt();
+  int ss = utcTime.substring(6, 8).toInt();
+  hh += 2;
+  String localTime = String(hh) +':'+ String(mm) +':'+ String(ss);
+  Serial.println(localTime);
 
   delay(1000);
 }
