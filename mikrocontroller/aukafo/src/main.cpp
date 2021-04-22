@@ -3,6 +3,14 @@
 #include <ArduinoJson.h>
 #include <NTPClient.h>
 #include <WiFiUdp.h>
+#include <HX711.h>
+
+// weight
+HX711 scale;
+
+// D6=12 and D5=14
+const int LOADCELL_DOUT_PIN = 12;
+const int LOADCELL_SCK_PIN = 14;
 
 const char *ssid     = "SSID";
 const char *password = "PASSWORD";
@@ -25,6 +33,8 @@ void setup() {
 
   timeClient.begin();
 
+  scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
+
 }
 
 void loop() {
@@ -38,6 +48,15 @@ void loop() {
   hh += 2;
   String localTime = String(hh) +':'+ String(mm) +':'+ String(ss);
   Serial.println(localTime);
+
+  // weight
+  if (scale.is_ready()) {
+    long reading = scale.read();
+    Serial.print("HX711 reading: ");
+    Serial.println(reading);
+  } else {
+    Serial.println("HX711 not found.");
+  }
 
   delay(1000);
 }
