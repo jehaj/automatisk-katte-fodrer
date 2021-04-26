@@ -4,6 +4,7 @@
 #include <NTPClient.h>
 #include <WiFiUdp.h>
 #include <HX711.h>
+#include <Servo.h>
 
 // weight
 HX711 scale;
@@ -20,6 +21,10 @@ WiFiUDP ntpUPD;
 // dk.pool.ntp.org
 NTPClient timeClient(ntpUPD, "dk.pool.ntp.org", 0, 120000);
 
+// servo
+Servo myServo;
+const int servoPin = 13;
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -35,6 +40,22 @@ void setup() {
 
   scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
 
+  // test servo motor movement:
+  // 90 is no movement (https://www.arduino.cc/en/Reference/ServoWrite)
+  // from testing i found out that the following apply to my servo motor
+  // below 90 is clockwise
+  // highter than 90 is counter clockwise
+  myServo.attach(servoPin);
+  myServo.write(80);
+  delay(1500);
+  myServo.write(70);
+  delay(1500);
+  myServo.write(100);
+  delay(1500);
+  myServo.write(110);
+  delay(1500);
+  myServo.write(90);
+  
 }
 
 void loop() {
