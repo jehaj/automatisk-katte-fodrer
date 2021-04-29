@@ -8,8 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js@3.2.0/dist/chart.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
     <script defer src="./script.js"></script>
+    <script defer src="./chartScript.js"></script>
 
     <title>Aukafo</title>
 </head>
@@ -40,8 +42,8 @@
                         porta gravida at eget metus. Cum sociis natoque penatibus et magnis dis parturient montes,
                         nascetur ridiculus mus. Cras mattis consectetur purus sit amet fermentum.
 
-                        <div class="columns">
-                            <div class="column">
+                        <div class="columns pb-0">
+                            <div class="column pb-0 mb-0">
                                 <div class="field has-addons has-addons-centered mt-3">
                                     <p class="control">
                                         <button class="button">
@@ -61,6 +63,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <canvas id="weightChart" width="912" height="400" style="margin-left: auto; margin-right: auto;"></canvas>
 
                     </div>
                 </div>

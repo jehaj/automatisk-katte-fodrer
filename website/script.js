@@ -9,9 +9,10 @@ function updateButtons() {
 }
 
 addButton = document.getElementById('add-button');
-addButton.addEventListener('click', () => {
+addButton.addEventListener('click', (event) => {
+    event.preventDefault();
     let settingsHolder = document.getElementById('settings-holder');
-    settingsHolder.innerHTML += `<div class="box mt-3 mb-0">
+    settingsHolder.insertAdjacentHTML('beforeend', `<div class="box mt-3 mb-0">
     <div class="columns is-vcentered">
         <div class="column is-narrow">
             <div class="columns is-vcentered">
@@ -45,6 +46,6 @@ addButton.addEventListener('click', () => {
             <button class="delete" id="delete-button"></button>
         </div>
     </div>
-</div>`;
+</div>`);
     updateButtons();
 });
