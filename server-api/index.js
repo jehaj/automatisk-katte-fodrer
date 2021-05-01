@@ -1,9 +1,26 @@
+require('dotenv').config()
+
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
+const { Client } = require('pg');
 
-const port = 8080;
+const client = new Client({
+    connectionString: process.env.DATABASE_URL
+  });
+
+client.connect()
+.catch((error) => {
+    console.log('Could not connect to server: ' + error);
+});
+
+client.query('SELECT * FROM aukafo', (err, res) => {
+    console.log(err, res)
+    client.end()
+});
+
+const port = process.env.PORT || 8080;
 const app = express();
 
 app.use(helmet()); // basic security
@@ -21,14 +38,14 @@ app.get('/weight', (req, res) => {
     let valuesAfter;
 
     if (res.body == "week") {
-        valuesAfter = Date.now() - 7*24*60*60*1000;
+        valuesAfter = Date.now() - 7 * 24 * 60 * 60 * 1000;
     } else if (res.body == "month") {
-        valuesAfter = Date.now() - 30*24*60*60*1000;
+        valuesAfter = Date.now() - 30 * 24 * 60 * 60 * 1000;
     } else if (res.body == "year") {
-        valuesAfter = Date.now() - 365*24*60*60*1000;
+        valuesAfter = Date.now() - 365 * 24 * 60 * 60 * 1000;
     } else {
         res.status(400);
-        res.send({error: "No time specified."});
+        res.send({ error: "No time specified." });
     }
 
     // query database for weight
