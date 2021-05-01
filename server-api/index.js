@@ -15,11 +15,6 @@ client.connect()
     console.log('Could not connect to server: ' + error);
 });
 
-client.query('SELECT * FROM aukafo', (err, res) => {
-    console.log(err, res)
-    client.end()
-});
-
 const port = process.env.PORT || 8080;
 const app = express();
 
@@ -49,7 +44,11 @@ app.get('/weight', (req, res) => {
     }
 
     // query database for weight
-
+    client.query('SELECT * FROM aukafo WHERE', (err, res) => {
+        console.log(err, res)
+        client.end()
+        res.send();
+    });
 });
 
 app.post('/weight', (req, res) => {
@@ -57,6 +56,10 @@ app.post('/weight', (req, res) => {
     const weightValue = res.body;
 
     // insert into database
+    client.query('INSERT INTO aukafo VALUES', (err, res) => {
+        console.log(err, res)
+        client.end()
+    });
 });
 
 app.get('/settings', (req, res) => {
