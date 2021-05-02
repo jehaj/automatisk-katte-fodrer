@@ -8,12 +8,12 @@ const { Client } = require('pg');
 
 const client = new Client({
     connectionString: process.env.DATABASE_URL
-  });
+});
 
 client.connect()
-.catch((error) => {
-    console.log('Could not connect to server: ' + error);
-});
+    .catch((error) => {
+        console.log('Could not connect to server: ' + error);
+    });
 
 const port = process.env.PORT || 8080;
 const app = express();
@@ -32,11 +32,11 @@ let receivedSettings = false;
 app.get('/weight', (req, res) => {
     let valuesAfter;
 
-    if (res.body == "week") {
+    if (req.body.before == "week") {
         valuesAfter = Date.now() - 7 * 24 * 60 * 60 * 1000;
-    } else if (res.body == "month") {
+    } else if (req.body.before == "month") {
         valuesAfter = Date.now() - 30 * 24 * 60 * 60 * 1000;
-    } else if (res.body == "year") {
+    } else if (req.body.before == "year") {
         valuesAfter = Date.now() - 365 * 24 * 60 * 60 * 1000;
     } else {
         res.status(400);
@@ -44,22 +44,21 @@ app.get('/weight', (req, res) => {
     }
 
     // query database for weight
-    client.query('SELECT * FROM aukafo WHERE', (err, res) => {
-        console.log(err, res)
-        client.end()
-        res.send();
+    client.query('SELECT * FROM aukafo WHERE insertedon > $1', [valuesAfter], (err, result) => {
+        console.log(err, result.rows);
+        res.send(result.rows);
     });
 });
 
 app.post('/weight', (req, res) => {
+    const weightValue = req.body.value;
     const timestamp = Date.now();
-    const weightValue = res.body;
 
     // insert into database
-    client.query('INSERT INTO aukafo VALUES', (err, res) => {
-        console.log(err, res)
-        client.end()
+    client.query('INSERT INTO aukafo VALUES ($1, $2)', [weightValue, timestamp], (err, res) => {
+        console.log(err ? `${err}` : `Successfully inserted ${weightValue} into the db.`);
     });
+    res.send({ message: "Succes" });
 });
 
 app.get('/settings', (req, res) => {
@@ -68,6 +67,7 @@ app.get('/settings', (req, res) => {
 });
 
 app.post('/settings', (req, res) => {
+    settings = req.body;
     receivedSettings = false;
     res.send();
 
@@ -75,4 +75,9 @@ app.post('/settings', (req, res) => {
 
 app.listen(port, () => {
     console.log(`Listening on http://127.0.0.1:${port}/`);
+});
+
+process.on('SIGINT', (code) => {
+    console.log("Ending the program.");
+    client.end();
 });
