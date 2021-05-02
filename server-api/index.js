@@ -69,7 +69,7 @@ app.get('/settings', (req, res) => {
 app.post('/settings', (req, res) => {
     settings = req.body;
     receivedSettings = false;
-    res.send();
+    res.send({message: "Successfully changed settings!"});
 
 });
 
