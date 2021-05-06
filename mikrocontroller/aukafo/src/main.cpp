@@ -19,9 +19,10 @@ const char *password = "PASSWORD";
 WiFiUDP ntpUPD;
 
 // dk.pool.ntp.org
+// tjekker klokken hvert andet minut (60*2*1000=120000)
 NTPClient timeClient(ntpUPD, "dk.pool.ntp.org", 0, 120000);
 
-// servo
+// servo D7 = 13
 Servo myServo;
 const int servoPin = 13;
 
