@@ -91,7 +91,6 @@ void loop() {
   if (returnCode > 0) {
     Serial.println("Successfully added weight to database.");
   } else {
-    Serial.println("Failed to add weight to database. \n
-                    Maybe the server is turned off?");
+    Serial.println("Failed to add weight to database.\nMaybe the server is turned off?");
   }
 }
