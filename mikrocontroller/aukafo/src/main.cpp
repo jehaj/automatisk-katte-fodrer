@@ -1,10 +1,11 @@
 #include <Arduino.h>
-#include <ESP8266WiFi.h>
 #include <ArduinoJson.h>
-#include <NTPClient.h>
-#include <WiFiUdp.h>
+#include <ESP8266HTTPClient.h>
+#include <ESP8266WiFi.h>
 #include <HX711.h>
+#include <NTPClient.h>
 #include <Servo.h>
+#include <WiFiUdp.h>
 
 // weight
 HX711 scale;
@@ -13,7 +14,9 @@ HX711 scale;
 const int LOADCELL_DOUT_PIN = 12;
 const int LOADCELL_SCK_PIN = 14;
 
-const char *ssid     = "SSID";
+HTTPClient http;
+
+const char *ssid = "SSID";
 const char *password = "PASSWORD";
 
 WiFiUDP ntpUPD;
@@ -31,9 +34,9 @@ void setup() {
   Serial.begin(9600);
   WiFi.begin(ssid, password);
   Serial.println("Connecting");
-  while ( WiFi.status() != WL_CONNECTED ) {
-    delay ( 500 );
-    Serial.print ( "." );
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
   }
   Serial.println();
 
@@ -56,7 +59,6 @@ void setup() {
   myServo.write(110);
   delay(1500);
   myServo.write(90);
-  
 }
 
 void loop() {
@@ -68,7 +70,7 @@ void loop() {
   int mm = utcTime.substring(3, 5).toInt();
   int ss = utcTime.substring(6, 8).toInt();
   hh += 2;
-  String localTime = String(hh) +':'+ String(mm) +':'+ String(ss);
+  String localTime = String(hh) + ':' + String(mm) + ':' + String(ss);
   Serial.println(localTime);
 
   // weight
@@ -81,4 +83,15 @@ void loop() {
   }
 
   delay(1000);
+
+  // post request to server
+  http.begin("");
+  http.addHeader("Content-Type", "application/json");
+  int returnCode = http.POST("");
+  if (returnCode > 0) {
+    Serial.println("Successfully added weight to database.");
+  } else {
+    Serial.println("Failed to add weight to database. \n
+                    Maybe the server is turned off?");
+  }
 }
