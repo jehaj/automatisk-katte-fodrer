@@ -85,7 +85,7 @@ void loop() {
   delay(1000);
 
   // post request to server
-  http.begin("");
+  http.begin("http://127.0.0.1:8080/weight");
   http.addHeader("Content-Type", "application/json");
   int returnCode = http.POST("");
   if (returnCode > 0) {
