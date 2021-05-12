@@ -31,7 +31,10 @@ const int servoPin = 13;
 
 void setup() {
   // put your setup code here, to run once:
+  // Setup serial communication. Is not needed in release.
   Serial.begin(9600);
+
+  // Setup wifi
   WiFi.begin(ssid, password);
   Serial.println("Connecting");
   while (WiFi.status() != WL_CONNECTED) {
@@ -40,8 +43,10 @@ void setup() {
   }
   Serial.println();
 
+  // Setup timeclient. This has to be done after connecting to a network
   timeClient.begin();
 
+  // Setup scale.
   scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
 
   // test servo motor movement:
@@ -63,8 +68,10 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  // this has to be called in loop
   timeClient.update();
 
+  // This product is used in Denmark, which is in UTC+2 timezone
   String utcTime = timeClient.getFormattedTime();
   int hh = utcTime.substring(0, 2).toInt();
   int mm = utcTime.substring(3, 5).toInt();
@@ -84,7 +91,7 @@ void loop() {
 
   delay(1000);
 
-  // post request to server
+  // Post request to server with weight value in body
   http.begin("http://127.0.0.1:8080/weight");
   http.addHeader("Content-Type", "application/json");
   int returnCode = http.POST("");
@@ -93,4 +100,6 @@ void loop() {
   } else {
     Serial.println("Failed to add weight to database.\nMaybe the server is turned off?");
   }
+
+  // Update the settings every 30 seconds
 }
