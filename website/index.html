@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/chart.js@3.2.0/dist/chart.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@1.0.0"></script>
     <script defer src="./script.js"></script>
     <script defer src="./chartScript.js"></script>
 
@@ -38,25 +40,22 @@
                 </header>
                 <div class="card-content">
                     <div class="content">
-                        Lorem ipsum leo risus, porta ac consectetur ac, vestibulum at eros. Donec id elit non mi
-                        porta gravida at eget metus. Cum sociis natoque penatibus et magnis dis parturient montes,
-                        nascetur ridiculus mus. Cras mattis consectetur purus sit amet fermentum.
-
+                        
                         <div class="columns pb-0">
                             <div class="column pb-0 mb-0">
                                 <div class="field has-addons has-addons-centered mt-3">
                                     <p class="control">
-                                        <button class="button">
+                                        <button id="button-week" class="button">
                                             <span>Uge</span>
                                         </button>
                                     </p>
                                     <p class="control">
-                                        <button class="button">
+                                        <button id="button-month" class="button">
                                             <span>Måned</span>
                                         </button>
                                     </p>
                                     <p class="control">
-                                        <button class="button">
+                                        <button id="button-year" class="button">
                                             <span>År</span>
                                         </button>
                                     </p>
