@@ -29,14 +29,14 @@ let settings = [
 ];
 let receivedSettings = false;
 
-app.get('/weight', (req, res) => {
+app.get('/weight/:before', (req, res) => {
     let valuesAfter;
 
-    if (req.body.before == "week") {
+    if (req.params.before == "week") {
         valuesAfter = Date.now() - 7 * 24 * 60 * 60 * 1000;
-    } else if (req.body.before == "month") {
+    } else if (req.params.before == "month") {
         valuesAfter = Date.now() - 30 * 24 * 60 * 60 * 1000;
-    } else if (req.body.before == "year") {
+    } else if (req.params.before == "year") {
         valuesAfter = Date.now() - 365 * 24 * 60 * 60 * 1000;
     } else {
         res.status(400);
