@@ -10,8 +10,8 @@
 // weight
 HX711 scale;
 
-// D6=12 and D5=14
-const int LOADCELL_DOUT_PIN = 12;
+// D6=12 and D5=14 (D0=16)
+const int LOADCELL_DOUT_PIN = 16;
 const int LOADCELL_SCK_PIN = 14;
 
 HTTPClient http;
@@ -28,6 +28,18 @@ NTPClient timeClient(ntpUPD, "dk.pool.ntp.org", 0, 120000);
 // servo D7 = 13
 Servo myServo;
 const int servoPin = 13;
+
+void sendWeightToServer(long freading) {
+  // Post request to server with weight value in body
+  http.begin("http://192.168.1.139:8080/weight");
+  http.addHeader("Content-Type", "application/json");
+  int returnCode = http.POST("{\"value\":\""+String(freading)+"\"}");
+  if (returnCode > 0) {
+    Serial.println("Successfully added weight to database.");
+  } else {
+    Serial.println("Failed to add weight to database.\nMaybe the server is turned off?");
+  }
+}
 
 void setup() {
   // put your setup code here, to run once:
@@ -85,21 +97,12 @@ void loop() {
     long reading = scale.read();
     Serial.print("HX711 reading: ");
     Serial.println(reading);
+    sendWeightToServer(reading);
   } else {
     Serial.println("HX711 not found.");
   }
 
-  delay(1000);
-
-  // Post request to server with weight value in body
-  http.begin("http://127.0.0.1:8080/weight");
-  http.addHeader("Content-Type", "application/json");
-  int returnCode = http.POST("");
-  if (returnCode > 0) {
-    Serial.println("Successfully added weight to database.");
-  } else {
-    Serial.println("Failed to add weight to database.\nMaybe the server is turned off?");
-  }
+  delay(5000);
 
   // Update the settings every 30 seconds
 }
