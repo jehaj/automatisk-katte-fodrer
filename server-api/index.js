@@ -45,7 +45,6 @@ app.get('/weight/:before', (req, res) => {
 
     // query database for weight
     client.query('SELECT * FROM aukafo WHERE insertedon > $1', [valuesAfter], (err, result) => {
-        console.log(err, result.rows);
         res.send(result.rows);
     });
 });
