@@ -15,7 +15,7 @@ const int LOADCELL_DOUT_PIN = 16;
 const int LOADCELL_SCK_PIN = 14;
 
 HTTPClient http;
-const char *serverAddress = "http://192.168.1.139:8080/";
+const char *serverAddress = "http://192.168.223.83:8080/";
 StaticJsonDocument<1024> doc;
 JsonArray arr;
 int numberOfSettings = 0;
@@ -164,7 +164,7 @@ void loop() {
         // turn on the servo. the time depends on the value from the settings.
         // a higher number means the servo will be turned on for a longe period
         // of time. this code is blocking because it uses the delay function.
-         myServo.write(70);
+         myServo.write(80);
          delay(nvalue*1000);
          myServo.write(90);
     }
