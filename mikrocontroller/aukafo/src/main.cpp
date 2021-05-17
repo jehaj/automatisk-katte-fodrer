@@ -99,6 +99,8 @@ void setup() {
 
   // Setup scale.
   scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
+  scale.set_scale(-251.f);
+  scale.tare();
 
   // test servo motor movement:
   // 90 is no movement (https://www.arduino.cc/en/Reference/ServoWrite)
@@ -137,7 +139,7 @@ void loop() {
 
   // weight
   if (scale.is_ready()) {
-    long reading = scale.read();
+    long reading = scale.get_units();
     Serial.print("HX711 reading: ");
     Serial.println(reading);
     sendWeightToServer(reading, 3);
