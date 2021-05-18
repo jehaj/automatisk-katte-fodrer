@@ -8,7 +8,7 @@ function updateButtons() {
     }
 }
 
-fetch('http://192.168.223.83:8080/settings')
+fetch('http://127.0.0.1:8080/settings')
     .then(response => response.json())
     .then(data => {
         for (const setting of data) {
@@ -111,7 +111,7 @@ updateButton.addEventListener('click', () => {
 
     console.log(newSettings);
 
-    fetch('http://192.168.223.83:8080/settings', {
+    fetch('http://127.0.0.1:8080/settings', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
