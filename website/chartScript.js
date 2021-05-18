@@ -2,7 +2,7 @@ function getWeightFromServer(before) {
     var labels = [];
     var dataForChart = [];
 
-    fetch(`http://127.0.0.1:8080/weight/${before}`, {
+    fetch(`http://192.168.223.83:8080/weight/${before}`, {
     })
         .then(response => response.json())
         .then(data => {
