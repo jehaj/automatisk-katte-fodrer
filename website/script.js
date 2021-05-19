@@ -8,7 +8,7 @@ function updateButtons() {
     }
 }
 
-fetch('http://127.0.0.1:8080/settings')
+fetch('https://lit-lake-24015.herokuapp.com/settings')
     .then(response => response.json())
     .then(data => {
         for (const setting of data) {
@@ -111,7 +111,7 @@ updateButton.addEventListener('click', () => {
 
     console.log(newSettings);
 
-    fetch('http://127.0.0.1:8080/settings', {
+    fetch('https://lit-lake-24015.herokuapp.com/settings', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

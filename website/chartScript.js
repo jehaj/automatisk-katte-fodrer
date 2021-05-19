@@ -2,7 +2,7 @@ function getWeightFromServer(before) {
     var labels = [];
     var dataForChart = [];
 
-    fetch(`http://127.0.0.1:8080/weight/${before}`, {
+    fetch(`https://lit-lake-24015.herokuapp.com/weight/${before}`, {
     })
         .then(response => response.json())
         .then(data => {
