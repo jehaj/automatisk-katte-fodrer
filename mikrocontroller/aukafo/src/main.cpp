@@ -15,12 +15,16 @@ const int LOADCELL_DOUT_PIN = 16;
 const int LOADCELL_SCK_PIN = 14;
 
 HTTPClient http;
-const char *serverAddress = "http://192.168.223.83:8080/";
+const char *serverAddress = "http://lit-lake-24015.herokuapp.com/";
 StaticJsonDocument<1024> doc;
 JsonArray arr;
 int numberOfSettings = 0;
 unsigned long period = 1000 * 60 * 30;  // millis*seconds*minutes
 unsigned long time_now = 0;
+
+unsigned long period1 = 1000 * 20;  // millis*seconds*minutes
+unsigned long time_now1 = 0;
+bool shouldSendWeight = true;
 
 int p_mm = 0;
 
@@ -55,7 +59,7 @@ int sendWeightToServer(long freading, int tries) {
   int returnCode = sendWeightToServer(freading);
   if (returnCode <= 0 && tries > 0) {
     Serial.println("Seems like the server did not respond. Sending again!");
-    sendWeightToServer(freading, tries-1);
+    sendWeightToServer(freading, tries - 1);
   }
   return returnCode;
 }
@@ -67,7 +71,7 @@ void getSettingsFromServer() {
     Serial.println("Successfully received settings from server.");
     String payload = http.getString();
     DeserializationError err = deserializeJson(doc, payload);
-    
+
     if (err) {
       Serial.print(F("deserializeJson() failed with code "));
       Serial.println(err.c_str());
@@ -108,15 +112,6 @@ void setup() {
   // below 90 is clockwise
   // highter than 90 is counter clockwise
   myServo.attach(servoPin);
-  // myServo.write(80);
-  // delay(1500);
-  // myServo.write(70);
-  // delay(1500);
-  // myServo.write(100);
-  // delay(1500);
-  // myServo.write(110);
-  // delay(1500);
-  // myServo.write(90);
 
   // get settings from the server. it checks every 30 minutes, but not in
   // the beginning. therefore the function is called below.
@@ -137,38 +132,48 @@ void loop() {
   String localTime = String(hh) + ':' + String(mm) + ':' + String(ss);
   Serial.println(localTime);
 
-  // weight
-  if (scale.is_ready()) {
-    long reading = scale.get_units();
-    Serial.print("HX711 reading: ");
-    Serial.println(reading);
-    sendWeightToServer(reading, 3);
-  } else {
-    Serial.println("HX711 not found.");
-  }
-
   // Update the settings every 30 minutes
   // it is overflow proof
-  // thanks https://www.norwegiancreations.com/2018/10/arduino-tutorial-avoiding-the-overflow-issue-when-using-millis-and-micros/
+  // thanks
+  // https://www.norwegiancreations.com/2018/10/arduino-tutorial-avoiding-the-overflow-issue-when-using-millis-and-micros/
   if (millis() - time_now > period) {
     time_now = millis();
     getSettingsFromServer();
   }
-  
+
   // loops over the settings array received from the server
   for (JsonObject repo : arr) {
     const String ntime = repo["time"];
     const int nvalue = int(repo["value"]);
 
     // this condition makes sure that the servo only turns on once
-    if((ntime.substring(0, 2) == String(hh)) &&
-       (ntime.substring(3, 5) == String(mm) && p_mm != mm)) {
-        // turn on the servo. the time depends on the value from the settings.
-        // a higher number means the servo will be turned on for a longe period
-        // of time. this code is blocking because it uses the delay function.
-         myServo.write(80);
-         delay(nvalue*1000);
-         myServo.write(90);
+    if ((ntime.substring(0, 2) == String(hh)) &&
+        (ntime.substring(3, 5) == String(mm) && p_mm != mm)) {
+      // turn on the servo. the time depends on the value from the settings.
+      // a higher number means the servo will be turned on for a longe period
+      // of time. this code is blocking because it uses the delay function.
+      myServo.write(80);
+      delay(nvalue * 1000);
+
+      // make sure to send weight to server after set amount of time
+      time_now1 = millis();
+      shouldSendWeight = true;
+
+      myServo.write(90);
+    }
+  }
+
+  if (millis() - time_now1 > period1 && shouldSendWeight) {
+    shouldSendWeight = false;
+    time_now1 = millis();
+    // weight
+    if (scale.is_ready()) {
+      long reading = scale.get_units();
+      Serial.print("HX711 reading: ");
+      Serial.println(reading);
+      sendWeightToServer(reading, 3);
+    } else {
+      Serial.println("HX711 not found.");
     }
   }
 
