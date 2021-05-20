@@ -44,7 +44,7 @@ var myChart = new Chart(ctx, {
     data: {
         labels: [],
         datasets: [{
-            label: 'Dit kæledyrs vægt over tid',
+            label: 'Dit kæledyrs vægt over tid i gram',
             data: []
         }]
     },
