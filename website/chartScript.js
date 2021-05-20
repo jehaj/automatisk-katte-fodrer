@@ -52,7 +52,7 @@ var myChart = new Chart(ctx, {
         scales: {
             y: {
                 beginAtZero: true,
-                suggestedMax: 7,
+                suggestedMax: 6500,
             },
             x: {
                 type: 'time',
