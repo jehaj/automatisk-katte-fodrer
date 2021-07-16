@@ -5,7 +5,8 @@ Man kan se en video om produktet på YouTube (https://youtu.be/m1rreF02XZE).
 
 ![Billede af Aukafo](https://github.com/NikolajK-HTX/automatisk-katte-fodrer/blob/8c5f30031cff13d0d9858d51c921911a726a3ff3/Billede%20af%20Aukafo.jpg)
 
-## ToDo-list :/
+## ToDo-list
+Produktet er færdigt. Jeg valgte at bruge en ESP8266 (mikrocontroller) i stedet for en Raspberry Pi. Det er både billigere og resulterer i en mindre formfaktor. Derudover betyder det også, at produktet er nemmere at sætte op - som vil sænke prisen yderligere, hvis det blev masseproduceret. 
 - [x] Begynd på projekt
 - [x] Server API (Node.js)
   - [x] Modtag data fra Raspberry Pi (post request)
