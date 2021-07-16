@@ -1,9 +1,9 @@
 # Aukafo
 Aukafo står for automatisk katte fodrer. Dette projekt er softwarelageret til eksamensprojektet i Informatik B.
 
-
-
 Man kan se en video om produktet på YouTube (https://youtu.be/m1rreF02XZE).
+
+![Billede af Aukafo](https://github.com/NikolajK-HTX/automatisk-katte-fodrer/blob/8c5f30031cff13d0d9858d51c921911a726a3ff3/Billede%20af%20Aukafo.jpg)
 
 ## ToDo-list :/
 - [x] Begynd på projekt
