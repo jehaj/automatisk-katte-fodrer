@@ -1,9 +1,9 @@
 # Aukafo
 Aukafo står for automatisk katte fodrer. Dette projekt er softwarelageret til eksamensprojektet i Informatik B.
 
-Man kan se en video om produktet på YouTube (https://youtu.be/m1rreF02XZE). Hjemmesiden, der bruges til at interagere med det fysiske produkt, findes [her](https://nikolajk-htx.github.io/automatisk-katte-fodrer/website/).
+Man kan se en video om produktet på YouTube (https://youtu.be/m1rreF02XZE). Hjemmesiden, der bruges til at interagere med det fysiske produkt, findes [her](https://jehaj.github.io/automatisk-katte-fodrer/website/).
 
-![Billede af Aukafo](https://github.com/NikolajK-HTX/automatisk-katte-fodrer/blob/8c5f30031cff13d0d9858d51c921911a726a3ff3/Billede%20af%20Aukafo.jpg)
+![Billede af Aukafo](https://github.com/jehaj/automatisk-katte-fodrer/blob/8c5f30031cff13d0d9858d51c921911a726a3ff3/Billede%20af%20Aukafo.jpg)
 
 ## Design valg
 Produktet er færdigt. Jeg valgte at bruge en ESP8266 (mikrocontroller) i stedet for en Raspberry Pi. Det er både billigere og resulterer i en mindre formfaktor. Derudover betyder det også, at produktet er nemmere at sætte op - som vil sænke prisen yderligere, hvis det blev masseproduceret. 
